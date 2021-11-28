@@ -1,6 +1,6 @@
 # Kimai Dockers
 
-We provide a set of docker images for the [Kimai v2](https://github.com/kevinpapst/kimai2) project.
+We provide a set of docker images for the [Kimai v2](https://github.com/kevinpapst/kimai2) project..
 
 The built images are available from [Kimai v2](https://hub.docker.com/repository/docker/kimai/kimai2) at Docker Hub.
 
