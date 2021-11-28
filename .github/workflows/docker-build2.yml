@@ -1,8 +1,9 @@
 name: build_docker
 
 on:
-  schedule:
-    - cron:  '* * * * *'
+  push:
+    branches:
+    - main
 
 jobs:
   build:
