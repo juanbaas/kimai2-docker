@@ -1,0 +1,43 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches:
+    - main
+#  push:
+#    branches: [ dev ]
+#  pull_request:
+#    branches: [ main ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    env:
+      TZ: Europe/London
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: install lastversion
+      run: sudo apt-get update -y; sudo apt-get install --no-install-recommends -y python3 python3-pip; pip install lastversion
+    - name: Settings for this run
+      run: echo Building Kimai images for version $(lastversion https://github.com/kevinpapst/kimai2)
+    - name: Build the Apache Prod
+      run: docker build . -t kimai/kimai2:apache-$(lastversion https://github.com/kevinpapst/kimai2)-prod --build-arg KIMAI=$(lastversion https://github.com/kevinpapst/kimai2) --build-arg BASE=apache --build-arg TZ=${TZ} --target=prod
+      
+    - name: Login to DockerHub
+      uses: docker/login-action@v1 
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: kimai/kimai2:apache
+        target: prod
+        build-args: |
+          "KIMAI=master"
+          "BASE=apache"
+  
