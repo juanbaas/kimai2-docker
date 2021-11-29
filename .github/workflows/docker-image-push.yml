@@ -31,8 +31,8 @@ jobs:
     - name: Settings for this run
       run: echo Building Kimai images for version $(lastversion https://github.com/kevinpapst/kimai2)
     - name: Build the Apache Prod
-      run: docker build . -t juan0923/kimai2:apache-$(lastversion https://github.com/kevinpapst/kimai2)-prod --build-arg KIMAI=$(lastversion https://github.com/kevinpapst/kimai2) --build-arg BASE=apache --build-arg TZ=${TZ} --target=prod
+      run: docker build . -t juan0923/kimai2:2 --build-arg KIMAI=$(lastversion https://github.com/kevinpapst/kimai2) --build-arg BASE=apache --build-arg TZ=${TZ} --target=prod
     - name: docker push
-      run: docker push juan0923/kimai2-apache:$(lastversion https://github.com/kevinpapst/kimai2)
+      run: docker push juan0923/kimai2:2
 
   
